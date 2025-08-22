@@ -64,15 +64,17 @@
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
-    // Your web app's Firebase configuration
+    // NOTE: Do NOT commit secrets in this file. Replace these placeholders at build/deploy
+    // time with values from your local .env (for example by generating a small config.js/json
+    // from .env or using your CI/CD secret injection mechanism).
     const firebaseConfig = {
-      apiKey: "AIzaSyBSGhXHylgDjqC64Tq8CvlvMp3VJaAmmnk",
-      authDomain: "budgease-460b5.firebaseapp.com",
-      projectId: "budgease-460b5",
-      storageBucket: "budgease-460b5.firebasestorage.app",
-      messagingSenderId: "805148220172",
-      appId: "1:805148220172:web:0bd8a799dc09c091d54729",
-      measurementId: "G-JJ5WQ4YGY6"
+      apiKey: "%FIREBASE_API_KEY%",
+      authDomain: "%FIREBASE_AUTH_DOMAIN%",
+      projectId: "%FIREBASE_PROJECT_ID%",
+      storageBucket: "%FIREBASE_STORAGE_BUCKET%",
+      messagingSenderId: "%FIREBASE_MESSAGING_SENDER_ID%",
+      appId: "%FIREBASE_APP_ID%",
+      measurementId: "%FIREBASE_MEASUREMENT_ID%"
     };
   
     // Initialize Firebase

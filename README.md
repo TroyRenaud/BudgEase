@@ -168,5 +168,3 @@ Refer to in-repo deep link parsing code for full parameter details.
 - For contributions and issues, open an issue in the original repository or reach out.
 
 ---
-
-If you want screenshots, diagrams, or an expanded developer setup (CI, testing, or Docker), specify which sections to add and I will update the README accordingly.

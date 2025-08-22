@@ -23,12 +23,17 @@ if exist .env (
     )
 )
 
-REM Copy template
-if exist .env.template (
+REM Copy from actual template if available, otherwise use regular template
+if exist .env.template.actual (
+    copy .env.template.actual .env >nul
+    echo Created .env file from actual configuration template
+    echo Note: This contains your current Firebase configuration values.
+    echo For security, consider creating a new Firebase project with your own keys.
+) else if exist .env.template (
     copy .env.template .env >nul
     echo Created .env file from template
 ) else (
-    echo Error: .env.template not found
+    echo Error: No template files found (.env.template or .env.template.actual)
     pause
     exit /b 1
 )
