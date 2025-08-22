@@ -1,32 +1,32 @@
-<h1 align="center" style="font-size:28px; line-height:1"><b>Cashew</b></h1>
-
-<a href="https://cashewapp.web.app/">
-  <div align="center">
-    <img alt="Icon" src="promotional/icons/icon.png" width="150px">
-  </div>
-</a>
-
-<br />
+<h1 align="center" style="font-size:28px; line-height:1"><b>BudgEase</b></h1>
 
 <div align="center">
-  <a href="https://apps.apple.com/us/app/cashew-expense-budget-tracker/id6463662930">
-    <img alt="iOS App Store Badge" src="promotional/store-banners/app-store-badge.png" height="60px">
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=com.budget.tracker_app">
-    <img alt="Google Play Badge" src="promotional/store-banners/google-play-badge.png" height="60px">
-  </a>
-  <a href="https://github.com/jameskokoska/Cashew/releases/">
-    <img alt="GitHub Badge" src="promotional/store-banners/github-badge.png" height="60px">
-  </a>
-  <a href="https://budget-track.web.app/">
-    <img alt="PWA Badge" src="promotional/store-banners/pwa-badge.png" height="60px">
-  </a>
+  <img alt="Icon" src="promotional/icons/icon.png" width="150px">
 </div>
 
-<h3 align="center" style="font-size:28px; line-height:1">
-  <a href="https://github.com/jameskokoska/Cashew/issues/725">🚀 Cashew Beta Testing</a>
-</h3>
+<p align="center">
+  BudgEase is a lightweight budget and expense tracking app built with Flutter, Drift (SQLite) and Firebase — designed to help you manage money, track transactions, and set budgets across devices.
+</p>
 
+## Key Features (short)
+- Budget creation and tracking (custom time periods)
+- Transaction management (expenses, income, repeating, subscriptions)
+- Multiple accounts & currency support
+- Biometric lock and Google sign-in
+- Backup & sync via Google Drive
+- Light/dark themes and customizable accent color
+
+## Release & Links
+- Website: https://budgease.renaud.co.za/
+- Privacy Policy: https://budgease.renaud.co.za/privacy-policy.html
+- Terms of Service: https://budgease.renaud.co.za/terms-of-service.html
+- Source & releases: https://github.com/jameskokoska/Cashew/releases/
+
+## Build & Deploy (quick)
+- Build web: cd budget && flutter build web
+- Deploy (if using Firebase): firebase deploy
+
+For full documentation, advanced features, and development notes, see the project files. If you need additional edits to this README, tell me which sections to expand or remove.
 ---
 
 <br />
