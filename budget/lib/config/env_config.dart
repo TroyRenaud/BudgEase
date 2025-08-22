@@ -2,34 +2,34 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class EnvConfig {
   static Future<void> load() async {
-    await dotenv.load(fileName: '.env');
+    // No longer loading from .env file since values are hardcoded
   }
 
   // Firebase Configuration
-  static String get firebaseApiKey => dotenv.get('FIREBASE_API_KEY', fallback: '');
-  static String get firebaseAuthDomain => dotenv.get('FIREBASE_AUTH_DOMAIN', fallback: '');
-  static String get firebaseProjectId => dotenv.get('FIREBASE_PROJECT_ID', fallback: '');
-  static String get firebaseStorageBucket => dotenv.get('FIREBASE_STORAGE_BUCKET', fallback: '');
-  static String get firebaseMessagingSenderId => dotenv.get('FIREBASE_MESSAGING_SENDER_ID', fallback: '');
-  static String get firebaseAppId => dotenv.get('FIREBASE_APP_ID', fallback: '');
-  static String get firebaseMeasurementId => dotenv.get('FIREBASE_MEASUREMENT_ID', fallback: '');
+  static String get firebaseApiKey => "AIzaSyBSGhXHylgDjqC64Tq8CvlvMp3VJaAmmnk";
+  static String get firebaseAuthDomain => "budgease-460b5.firebaseapp.com";
+  static String get firebaseProjectId => "budgease-460b5";
+  static String get firebaseStorageBucket => "budgease-460b5.firebasestorage.app";
+  static String get firebaseMessagingSenderId => "805148220172";
+  static String get firebaseAppId => "1:805148220172:web:0bd8a799dc09c091d54729";
+  static String get firebaseMeasurementId => "G-JJ5WQ4YGY6";
 
   // Google OAuth Configuration
-  static String get googleOAuthClientId => dotenv.get('GOOGLE_OAUTH_CLIENT_ID', fallback: '');
+  static String get googleOAuthClientId => "516705496948-vu3rlgecsre58glehfk08p44td3nb58p.apps.googleusercontent.com";
 
   // Android Configuration
-  static String get androidApiKey => dotenv.get('ANDROID_API_KEY', fallback: '');
-  static String get androidAppId => dotenv.get('ANDROID_APP_ID', fallback: '');
-  static String get androidProjectNumber => dotenv.get('ANDROID_PROJECT_NUMBER', fallback: '');
+  static String get androidApiKey => "AIzaSyBSGhXHylgDjqC64Tq8CvlvMp3VJaAmmnk";
+  static String get androidAppId => "1:805148220172:web:0bd8a799dc09c091d54729";
+  static String get androidProjectNumber => "805148220172";
 
   // Web Configuration
-  static String get webApiKey => dotenv.get('WEB_API_KEY', fallback: '');
-  static String get webAppId => dotenv.get('WEB_APP_ID', fallback: '');
+  static String get webApiKey => "AIzaSyBSGhXHylgDjqC64Tq8CvlvMp3VJaAmmnk";
+  static String get webAppId => "1:805148220172:web:0bd8a799dc09c091d54729";
 
   // Environment
-  static String get appEnv => dotenv.get('APP_ENV', fallback: 'development');
-  static bool get isProduction => appEnv == 'production';
-  static bool get isDevelopment => appEnv == 'development';
+  static String get appEnv => "development";
+  static bool get isProduction => false;
+  static bool get isDevelopment => true;
 
   // Validation
   static bool get isFirebaseConfigured =>

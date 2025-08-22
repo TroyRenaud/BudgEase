@@ -56,6 +56,22 @@ keystore.jks
 # Environment variables
 .env
 
+
 # Firebase
 /.firebase
 .firebase/
+
+# Added ignores for attached sensitive/config files
+# Android firebase config files (specific + pattern)
+android/app/google-services.json
+android/app/google-services-old.json
+android/app/google-services-laptop-dev.json
+android/app/google-services*.json
+
+# Web build and source index files provided as attachments
+/web/index.html
+/build/web/index.html
+
+# Local environment/config that may contain secrets
+/lib/config/env_config.dart
+.env

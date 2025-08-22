@@ -417,7 +417,7 @@ class AboutDeepLinking extends StatelessWidget {
         Tappable(
           onTap: () {
             openUrl(
-                "https://github.com/jameskokoska/Cashew?tab=readme-ov-file#app-links");
+                "https://github.com/TroyRenaud/BudgEase?tab=readme-ov-file#app-links");
           },
           child: TextFont(
             text: "learn-more".tr(),
