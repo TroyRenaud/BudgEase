@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:budget/config/env_config.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,31 +47,32 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR_WEB_API_KEY', // You'll need to get this from Firebase Console
-    appId: 'YOUR_WEB_APP_ID', // You'll need to get this from Firebase Console
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID', // You'll need to get this from Firebase Console
-    projectId: 'budgease-460b5',
-    authDomain: 'budgease-460b5.firebaseapp.com',
-    storageBucket: 'budgease-460b5.appspot.com',
+  static FirebaseOptions get web => FirebaseOptions(
+    apiKey: EnvConfig.firebaseApiKey,
+    appId: EnvConfig.firebaseAppId,
+    messagingSenderId: EnvConfig.firebaseMessagingSenderId,
+    projectId: EnvConfig.firebaseProjectId,
+    authDomain: EnvConfig.firebaseAuthDomain,
+    storageBucket: EnvConfig.firebaseStorageBucket,
+    measurementId: EnvConfig.firebaseMeasurementId,
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_ANDROID_API_KEY', // You'll need to get this from Firebase Console
-    appId: 'YOUR_ANDROID_APP_ID', // You'll need to get this from Firebase Console
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID', // You'll need to get this from Firebase Console
-    projectId: 'budgease-460b5',
-    storageBucket: 'budgease-460b5.appspot.com',
+  static FirebaseOptions get android => FirebaseOptions(
+    apiKey: EnvConfig.firebaseApiKey,
+    appId: EnvConfig.firebaseAppId,
+    messagingSenderId: EnvConfig.firebaseMessagingSenderId,
+    projectId: EnvConfig.firebaseProjectId,
+    storageBucket: EnvConfig.firebaseStorageBucket,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_IOS_API_KEY', // You'll need to get this from Firebase Console
-    appId: 'YOUR_IOS_APP_ID', // You'll need to get this from Firebase Console
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID', // You'll need to get this from Firebase Console
-    projectId: 'budgease-460b5',
-    storageBucket: 'budgease-460b5.appspot.com',
-    androidClientId: 'YOUR_ANDROID_CLIENT_ID', // You'll need to get this from Google Cloud Console
-    iosClientId: 'YOUR_IOS_CLIENT_ID', // You'll need to get this from Google Cloud Console
+  static FirebaseOptions get ios => FirebaseOptions(
+    apiKey: EnvConfig.firebaseApiKey,
+    appId: EnvConfig.firebaseAppId,
+    messagingSenderId: EnvConfig.firebaseMessagingSenderId,
+    projectId: EnvConfig.firebaseProjectId,
+    storageBucket: EnvConfig.firebaseStorageBucket,
+    androidClientId: EnvConfig.googleOAuthClientId,
+    iosClientId: EnvConfig.googleOAuthClientId,
     iosBundleId: 'com.budget.tracker-app',
   );
 }

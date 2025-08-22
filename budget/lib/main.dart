@@ -35,6 +35,8 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:budget/config/env_config.dart';
 
 // Requires hot restart when changed
 bool enableDevicePreview = false && kDebugMode;
@@ -44,6 +46,15 @@ bool allowDangerousDebugFlags = kDebugMode;
 void main() async {
   captureLogs(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    
+    // Load environment variables
+    await EnvConfig.load();
+    
+    // Validate environment configuration
+    if (kReleaseMode) {
+      EnvConfig.validate();
+    }
+    
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

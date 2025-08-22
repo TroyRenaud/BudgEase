@@ -53,5 +53,9 @@ app.*.map.json
 key.properties
 keystore.jks
 
+# Environment variables
+.env
+
+# Firebase
 /.firebase
 .firebase/
