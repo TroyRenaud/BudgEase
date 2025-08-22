@@ -1,0 +1,30 @@
+# 1) Check whether files are tracked (each command returns the filename if tracked; error if not)
+git ls-files --error-unmatch "budget/android/app/google-services.json"
+git ls-files --error-unmatch "budget/android/app/google-services-old.json"
+git ls-files --error-unmatch "budget/android/app/google-services-laptop-dev.json"
+git ls-files --error-unmatch "budget/web/index.html"
+git ls-files --error-unmatch "budget/build/web/index.html"
+git ls-files --error-unmatch "budget/lib/config/env_config.dart"
+
+# 2) Untrack the files (they remain on disk). Use --ignore-unmatch to avoid errors if some aren't tracked.
+git rm --cached --ignore-unmatch "budget/android/app/google-services.json"
+git rm --cached --ignore-unmatch "budget/android/app/google-services-old.json"
+git rm --cached --ignore-unmatch "budget/android/app/google-services-laptop-dev.json"
+git rm --cached --ignore-unmatch "budget/web/index.html"
+git rm --cached --ignore-unmatch "budget/build/web/index.html"
+git rm --cached --ignore-unmatch "budget/lib/config/env_config.dart"
+
+# or untrack all google-services files in that folder:
+git rm --cached --ignore-unmatch "budget/android/app/google-services*.json"
+
+# 3) Commit the removals and push
+git add .gitignore
+git commit -m "Remove sensitive config files from repository and rely on .gitignore"
+git push
+
+# 4) (Optional) If you want the ignore rules at repo root, copy the budget/.gitignore entries into the repo root .gitignore:
+# PowerShell:
+Copy-Item -Path 'budget\.gitignore' -Destination '.gitignore' -Force
+# or manually merge the relevant lines.
+
+# 5) If any secrets were already pushed to a remote, rotate/regenerate them immediately and consider using BFG or git-filter-repo to purge history.
