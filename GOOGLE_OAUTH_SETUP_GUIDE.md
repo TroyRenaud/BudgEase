@@ -51,7 +51,7 @@
 
 ## Step 4: Update Your App Configuration
 
-1. Open `Cashew-main/budget/web/index.html`
+1. Open `BudgEase-main/budget/web/index.html`
 2. Find this line:
    ```html
    <meta name="google-signin-client_id" content="YOUR_WEB_CLIENT_ID">
@@ -74,7 +74,7 @@
 
 1. Build and deploy your app:
    ```bash
-   cd Cashew-main/budget
+   cd BudgEase-main/budget
    flutter build web
    firebase deploy
    ```

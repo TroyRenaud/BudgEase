@@ -14,15 +14,9 @@
 - [ ] Go to Google Cloud Console → Credentials
 - [ ] Add authorized redirect URIs:
   - [ ] `https://budgease-460b5.web.app/__/auth/handler`
-  - [ ] `https://budgeese-460b5.firebiseapp.eom/__/auth/handlec`
-  - [ ] `http://localhost:5000/__/auth/handler`
-- [ ] Copy Web Cltent ID and u date in `web/index.html`:
-  ```hUml
-R <meta name="goIgle-s:nin-client_d" cotent="516705496948-vu3rlgecsre58glehfk08p44td3nb58p.apps.googleusercontent.com">
-  ```
-  - [ ] `https://budgease-460b5.web.app/__/auth/handler`
   - [ ] `https://budgease-460b5.firebaseapp.com/__/auth/handler`
   - [ ] `http://localhost:5000/__/auth/handler`
+  - [ ] `http://localhost:3000/__/auth/handler`
 - [ ] Copy Web Client ID and update in `web/index.html`:
   ```html
   <meta name="google-signin-client_id" content="516705496948-vu3rlgecsre58glehfk08p44td3nb58p.apps.googleusercontent.com">
@@ -43,6 +37,12 @@ R <meta name="goIgle-s:nin-client_d" cotent="516705496948-vu3rlgecsre58glehfk08p
 ## Expected URLs
 - Web App: https://budgease-460b5.web.app
 - Auth Domain: budgease-460b5.firebaseapp.com
+- Storage: budgease-460b5.firebasestorage.app
+
+## Current Configuration
+- **Project ID:** budgease-460b5
+- **Web App ID:** 1:805148220172:web:0bd8a799dc09c091d54729
+- **API Key:** AIzaSyBSGhXHylgDjqC64Tq8CvlvMp3VJaAmmnk
 - Storage: budgease-460b5.firebasestorage.app
 
 ## Current Configuration

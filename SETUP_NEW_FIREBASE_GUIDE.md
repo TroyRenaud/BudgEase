@@ -37,7 +37,7 @@ The FlutterFire CLI has successfully configured your Firebase project with the f
 ## Step 3: Deploy Your App
 
 ```bash
-cd Cashew-main/budget
+cd BudgEase-main/budget
 flutter build web
 firebase deploy
 ```
