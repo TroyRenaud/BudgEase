@@ -5,73 +5,168 @@
 </div>
 
 <p align="center">
-  BudgEase is a budget and expense tracking app built with Flutter, Drift (SQLite) and Firebase. It helps you manage accounts, track transactions, set budgets & goals, and view spending insights across devices.
+  BudgEase is a cross-platform budget and expense tracking app built with Flutter, Drift (SQLite) and Firebase. It helps you manage accounts, track transactions, set budgets & goals, and get insight into your spending — on mobile and web.
 </p>
 
-## What BudgEase Does
-BudgEase provides a simple but powerful interface for tracking personal finances. Add expenses and income, set recurring transactions, create budgets with custom time periods, and back up your data to Google Drive. The app is designed to work on mobile and web (PWA) and supports multiple accounts and currencies.
+---
 
-## Key Features
-- Budget creation with custom time periods (monthly, weekly, custom)
-- Transaction types: one-off, repeating, subscription, upcoming, loans/credits
-- Categories & subcategories with icons and custom labels
-- Multiple accounts (wallets) and currency conversion
-- Goals (savings & spend targets) and budget category limits
-- Biometric lock and Google Sign-In (optional)
-- Import CSV or Google Sheets; export backups to Google Drive
-- Light/dark themes and customizable accent color
-- Offline-first: data stored locally (Drift/SQLite) with optional cloud backups
+## Table of contents
+- What BudgEase does
+- Detailed features
+- Quick start (user)
+- Quick start (developer)
+- Web & Firebase notes
+- App links / deep links
+- Import / export & backups
+- Translations
+- Troubleshooting & tips
+- Release, changelog & license
+- Contact & support
 
-## Quick Start (development)
-- Install Flutter and required SDKs
-- From repo root build web:
+---
+
+## What BudgEase does
+BudgEase provides a simple, privacy-conscious way to track personal finances:
+- Add and categorize expenses and income
+- Create budgets with custom time periods
+- Track repeating subscriptions and upcoming payments
+- Support for multiple accounts and currencies
+- Local-first storage with optional cloud backup and sync
+
+---
+
+## Detailed features
+- Budgeting
+  - Create budgets (monthly, weekly, daily or custom ranges)
+  - Assign spending limits per category within a budget
+  - View historical budgets and compare across periods
+- Transactions
+  - One-off, repeating, subscription, upcoming, loans/credits
+  - Custom categories & subcategories (with icons)
+  - Auto-assign categories based on transaction titles (title memory)
+  - Search, filter and bulk edit/delete transactions
+- Accounts & Currencies
+  - Multiple accounts (internally: "wallets")
+  - Display original amount and converted amount per selected account
+  - Automatic currency conversion using configured rates
+- Goals & Automation
+  - Saving and spending goals, contribution tracking
+  - Notifications and reminders for goals, budgets and payments
+- UX & Security
+  - Material design with adaptive themes, light/dark and custom accent color
+  - Biometric lock and Google Sign-In (optional)
+- Data & Interoperability
+  - Import CSV or Google Sheets
+  - App links to prefill/add transactions via URL
+  - Google Drive backups (user-owned Drive)
+
+---
+
+## Quick start (user)
+1. Install the app on your platform (mobile or web).
+2. Create an account or use local-only mode.
+3. Add an account, create categories and add your first transaction.
+4. Set budgets and goals from the Budgets/Goals screen.
+5. Enable Google Drive backup if you want cloud backups.
+
+---
+
+## Quick start (developer)
+Prerequisites:
+- Flutter (stable channel), Dart SDK compatible with this repo
+- Android/iOS SDKs for mobile builds
+- Firebase CLI (if deploying web)
+
+Common commands:
+- Get packages: cd budget && flutter pub get
+- Run on device/emulator: flutter run
+- Build web: cd budget && flutter build web
+- Build Android app bundle: flutter build appbundle --release
+- Build iOS IPA: flutter build ipa (macOS required)
+
+Important dev files:
+- budget/pubspec.yaml — package dependencies and assets
+- budget/lib — application source code
+- budget/assets — bundled assets and translations
+
+Notes:
+- Database: Drift (drift_dev + build_runner used to generate DB code)
+- Migrations: bump schemaVersionGlobal in tables.dart then use drift_dev to export/import schema and generate steps
+
+---
+
+## Web & Firebase notes
+- This project can be deployed as a PWA using Firebase Hosting.
+- Example Firebase project id used in docs: budgease-460b5.
+- For Google Sign-In on web:
+  - Register an OAuth web client in Google Cloud Console
+  - Add authorized redirect URIs (see SETUP_NEW_FIREBASE_GUIDE.md and GOOGLE_OAUTH_SETUP_GUIDE.md)
+  - Add the client ID into budget/web/index.html: <meta name="google-signin-client_id" content="YOUR_WEB_CLIENT_ID">
+- To deploy web:
   - cd budget && flutter build web
-- Deploy (example using Firebase Hosting):
   - firebase deploy
 
-## Firebase & OAuth (summary)
-- This project can be configured with your own Firebase project (example project id: budgease-460b5).
-- For Google Sign-In, register a Web OAuth client in Google Cloud Console and add authorized redirect URIs:
-  - https://budgease-460b5.web.app/__/auth/handler
-  - https://budgease-460b5.firebaseapp.com/__/auth/handler
-  - http://localhost:5000/__/auth/handler
-- Update the web client id in budget/web/index.html:
-  <meta name="google-signin-client_id" content="YOUR_WEB_CLIENT_ID">
+See SETUP_NEW_FIREBASE_GUIDE.md and GOOGLE_OAUTH_SETUP_GUIDE.md in this repo for step-by-step instructions.
 
-(See GOOGLE_OAUTH_SETUP_GUIDE.md and SETUP_NEW_FIREBASE_GUIDE.md for full instructions.)
+---
 
-## App Links / Deep Links (web)
-BudgEase supports app links for adding transactions via URL parameters. Example:
-- Add a single expense: https://budgease.renaud.co.za/addTransaction?amount=-50&title=Groceries&category=Food
-- Add multiple via encoded JSON: https://budgease.renaud.co.za/addTransaction?JSON=...
+## App links / Deep links
+BudgEase supports deep links to create transactions or open the add-transaction screen with prefilled values. Examples:
+- Add one expense:
+  - https://your-domain/addTransaction?amount=-50&title=Groceries&category=Food
+- Open add transaction route (prefilled UI):
+  - https://your-domain/addTransactionRoute?amount=-50&title=Groceries&date=2025-08-22
+- Add multiple via encoded JSON:
+  - https://your-domain/addTransaction?JSON=%7B%22transactions%22%3A%5B...%5D%7D
 
-(Refer to in-repo docs for parameter details.)
+Refer to in-repo deep link parsing code for full parameter details.
 
-## Backup & Sync
-- Backups use Google Drive (user's own Drive) — developer does not access your Drive backups.
-- Local data is stored using Drift (SQLite) and settings are stored locally.
+---
+
+## Import / Export & Backups
+- CSV / Google Sheets import to bulk add transactions.
+- Backups:
+  - Local backups stored on device.
+  - Optional backups to your Google Drive (app stores backups in user Drive; developer does not access your Drive).
+- Export options: CSV or Drive backups for migrating or restoring data.
+
+---
 
 ## Translations
-- Translations are maintained in the repository. To update:
+- Translations maintained in repo assets and a Google Sheets file (documented in repo).
+- To regenerate translations:
   - Run: budget\assets\translations\generate-translations.py
   - Restart the app
 
-## Release & Source
-- Website: https://budgease.renaud.co.za/
-- Privacy Policy: https://budgease.renaud.co.za/privacy-policy.html
-- Terms of Service: https://budgease.renaud.co.za/terms-of-service.html
+---
+
+## Troubleshooting & tips
+- If web Google Sign-In returns redirect_uri_mismatch, confirm OAuth client redirect URIs in Google Cloud Console match deployed domain and firebase auth handler URI.
+- For Android app links to open your app instead of browser, ensure the associated domain and assetlinks are configured if using verified App Links.
+- When modifying database schema:
+  - Bump schemaVersionGlobal in tables.dart
+  - Run dart run build_runner build
+  - Use drift_dev schema export and migration steps as documented in repo
+
+---
+
+## Release, changelog & license
+- Releases and historical changes: see original project releases and commits (link below).
+- License: GNU GPL v3 (see LICENSE file in repo).
 - Source & releases (original project repo): https://github.com/jameskokoska/Cashew/releases/
 
-## Developer Notes (short)
-- Wallets == Accounts internally; Objectives == Goals in UI mappings.
-- Use getPlatform() and pushRoute(context, page) helpers in budget/lib for platform-aware behavior.
-- Database migrations: edit tables.dart, bump schemaVersionGlobal, then run build_runner and drift_dev commands (see repo docs).
+---
 
-## License & Credits
-- Licensed under GNU GPL v3 (see LICENSE file).
-- See in-repo credits and package licenses for bundled/third-party components.
+## Credits & bundled packages
+- This repo bundles modified versions of some packages under budget/packages (see README inside budget).
+- See LICENSE and package files for third-party attributions.
 
-## Contact / Support
-- Support: troyrenaud@gmail.com
+---
 
-For full documentation, developer guides, and detailed feature descriptions, explore the files in the repository. If you want further trimming or additional sections (screenshots, architecture, contributing), tell me which to add or remove.
+## Contact & support
+- Support / developer contact: troyrenaud@gmail.com
+- For contributions and issues, open an issue in the original repository or reach out.
+
+---
+
+If you want screenshots, diagrams, or an expanded developer setup (CI, testing, or Docker), specify which sections to add and I will update the README accordingly.
