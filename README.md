@@ -110,19 +110,6 @@ See SETUP_NEW_FIREBASE_GUIDE.md and GOOGLE_OAUTH_SETUP_GUIDE.md in this repo for
 
 ---
 
-## App links / Deep links
-BudgEase supports deep links to create transactions or open the add-transaction screen with prefilled values. Examples:
-- Add one expense:
-  - https://your-domain/addTransaction?amount=-50&title=Groceries&category=Food
-- Open add transaction route (prefilled UI):
-  - https://your-domain/addTransactionRoute?amount=-50&title=Groceries&date=2025-08-22
-- Add multiple via encoded JSON:
-  - https://your-domain/addTransaction?JSON=%7B%22transactions%22%3A%5B...%5D%7D
-
-Refer to in-repo deep link parsing code for full parameter details.
-
----
-
 ## Import / Export & Backups
 - CSV / Google Sheets import to bulk add transactions.
 - Backups:

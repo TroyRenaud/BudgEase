@@ -18,6 +18,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:budget/colors.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:budget/widgets/notificationsSettings.dart';
 
 // returns 0 if no navigation sidebar should be shown
 double getWidthNavigationSidebar(BuildContext context) {
@@ -268,50 +269,49 @@ class NavigationSidebarState extends State<NavigationSidebar> {
                                 navBarIconDataKey: "budgets",
                                 currentPageIndex: selectedIndex,
                               ),
-                              // TEMPORARY: Hidden buttons
-                              // NavigationSidebarButtonWithNavBarIconData(
-                              //   navBarIconDataKey: "goals",
-                              //   currentPageIndex: selectedIndex,
-                              // ),
-                              // NavigationSidebarButtonWithNavBarIconData(
-                              //   navBarIconDataKey: "subscriptions",
-                              //   currentPageIndex: selectedIndex,
-                              // ),
-                              // NavigationSidebarButtonWithNavBarIconData(
-                              //   navBarIconDataKey: "scheduled",
-                              //   currentPageIndex: selectedIndex,
-                              // ),
-                              // NavigationSidebarButtonWithNavBarIconData(
-                              //   navBarIconDataKey: "loans",
-                              //   currentPageIndex: selectedIndex,
-                              // ),
-                              // if (notificationsGlobalEnabled)
-                              //   NavigationSidebarButtonWithNavBarIconData(
-                              //     navBarIconDataKey: "notifications",
-                              //     currentPageIndex: selectedIndex,
-                              //   ),
+                              NavigationSidebarButtonWithNavBarIconData(
+                                navBarIconDataKey: "goals",
+                                currentPageIndex: selectedIndex,
+                              ),
+                              NavigationSidebarButtonWithNavBarIconData(
+                                navBarIconDataKey: "subscriptions",
+                                currentPageIndex: selectedIndex,
+                              ),
+                              NavigationSidebarButtonWithNavBarIconData(
+                                navBarIconDataKey: "scheduled",
+                                currentPageIndex: selectedIndex,
+                              ),
+                              NavigationSidebarButtonWithNavBarIconData(
+                                navBarIconDataKey: "loans",
+                                currentPageIndex: selectedIndex,
+                              ),
+                              if (notificationsGlobalEnabled)
+                                NavigationSidebarButtonWithNavBarIconData(
+                                  navBarIconDataKey: "notifications",
+                                  currentPageIndex: selectedIndex,
+                                ),
                               NavigationSidebarButtonWithNavBarIconData(
                                 navBarIconDataKey: "allSpending",
                                 currentPageIndex: selectedIndex,
                               ),
-                          //     EditDataButtons(selectedIndex: selectedIndex),
-                          //   ],
-                          // ),
-                          // Spacer(),
-                          // Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   mainAxisSize: MainAxisSize.min,
-                          //   children: [
-                          //     SizedBox(height: 40),
+                              EditDataButtons(selectedIndex: selectedIndex),
+                            ],
+                          ),
+                          Spacer(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(height: 40),
                               GoogleAccountLoginButton(
                                 navigationSidebarButton: true,
                                 isButtonSelected: selectedIndex == 8,
                               ),
-                              // NavigationSidebarButtonWithNavBarIconData(
-                              //   navBarIconDataKey: "settings",
-                              //   currentPageIndex: selectedIndex,
-                              // ),
+                              NavigationSidebarButtonWithNavBarIconData(
+                                navBarIconDataKey: "settings",
+                                currentPageIndex: selectedIndex,
+                              ),
                               NavigationSidebarButtonWithNavBarIconData(
                                 navBarIconDataKey: "about",
                                 currentPageIndex: selectedIndex,

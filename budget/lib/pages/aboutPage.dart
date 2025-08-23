@@ -119,13 +119,6 @@ class AboutPageState extends State<AboutPage> {
         ),
         SizedBox(height: 5),
         AboutLinks(containerColor: containerColor),
-        SizedBox(height: 10),
-        HorizontalBreak(),
-        SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15, vertical: 7),
-          child: AboutDeepLinking(),
-        ),
       ],
     );
   }
