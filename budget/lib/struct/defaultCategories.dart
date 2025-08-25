@@ -136,5 +136,15 @@ List<TransactionCategory> defaultCategories() {
       order: 11,
       income: true,
     ),
+    TransactionCategory(
+      categoryPk: "12",
+      name: "Social",
+      colour: toHexString(Colors.teal),
+      iconName: "social.png",
+      dateCreated: DateTime.now(),
+      dateTimeModified: null,
+      order: 12,
+      income: false,
+    ),
   ];
 }
