@@ -1,15 +1,9 @@
-
+import 'package:budget/database/tables.dart';
+import 'package:budget/struct/databaseGlobal.dart';
 import 'package:budget/widgets/framework/pageFramework.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-
-class PricedItem {
-  final String name;
-  final String store;
-  final double price;
-
-  PricedItem({required this.name, required this.store, required this.price});
-}
 
 class PriceComparisonPage extends StatefulWidget {
   const PriceComparisonPage({Key? key}) : super(key: key);
@@ -19,11 +13,10 @@ class PriceComparisonPage extends StatefulWidget {
 }
 
 class _PriceComparisonPageState extends State<PriceComparisonPage> {
-  final List<PricedItem> _items = [];
-
-  Map<String, List<PricedItem>> get _groupedItems {
+  Map<String, List<PricedItem>> _groupPricedItems(
+      List<PricedItem> pricedItems) {
     final map = <String, List<PricedItem>>{};
-    for (final item in _items) {
+    for (final item in pricedItems) {
       if (map.containsKey(item.name)) {
         map[item.name]!.add(item);
       } else {
@@ -39,9 +32,13 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
   }
 
   void _addItem(String name, String store, double price) {
-    setState(() {
-      _items.add(PricedItem(name: name, store: store, price: price));
-    });
+    final newPricedItem = PricedItemsCompanion(
+      name: drift.Value(name),
+      store: drift.Value(store),
+      price: drift.Value(price),
+      dateCreated: drift.Value(DateTime.now()),
+    );
+    database.createOrUpdatePricedItem(newPricedItem);
   }
 
   void _showAddItemDialog() {
@@ -97,9 +94,6 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
 
   @override
   Widget build(BuildContext context) {
-    final grouped = _groupedItems;
-    final groupKeys = grouped.keys.toList();
-
     return PageFramework(
       title: "price-comparison".tr(),
       actions: [
@@ -109,37 +103,67 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
         ),
       ],
       slivers: [
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final groupName = groupKeys[index];
-              final itemsInGroup = grouped[groupName]!;
-              final cheapestItem = _getCheapestItem(itemsInGroup);
+        StreamBuilder<List<PricedItem>>(
+          stream: database.watchAllPricedItems(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final grouped = _groupPricedItems(snapshot.data!);
+              final groupKeys = grouped.keys.toList();
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final groupName = groupKeys[index];
+                    final itemsInGroup = grouped[groupName]!;
+                    final cheapestItem = _getCheapestItem(itemsInGroup);
 
-              return Card(
-                margin: EdgeInsets.all(8.0),
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(groupName, style: Theme.of(context).textTheme.headline6),
-                      SizedBox(height: 8.0),
-                      ...itemsInGroup.map((item) {
-                        final isCheapest = item == cheapestItem;
-                        return ListTile(
-                          title: Text(item.store),
-                          trailing: Text(item.price.toStringAsFixed(2)),
-                          tileColor: isCheapest ? Colors.green.withOpacity(0.3) : null,
-                        );
-                      }).toList(),
-                    ],
-                  ),
+                    return Card(
+                      margin: EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(groupName,
+                                style: Theme.of(context).textTheme.headline6),
+                            SizedBox(height: 8.0),
+                            ...itemsInGroup.map((item) {
+                              final isCheapest = item == cheapestItem;
+                              return ListTile(
+                                title: Text(item.store),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(item.price.toStringAsFixed(2)),
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        database.deletePricedItem(
+                                            item.pricedItemPk);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                tileColor: isCheapest
+                                    ? Colors.green.withOpacity(0.3)
+                                    : null,
+                              );
+                            }).toList(),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: groupKeys.length,
                 ),
               );
-            },
-            childCount: groupKeys.length,
-          ),
+            } else {
+              return SliverToBoxAdapter(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
         ),
       ],
     );
