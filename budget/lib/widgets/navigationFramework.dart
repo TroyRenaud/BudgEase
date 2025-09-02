@@ -379,6 +379,7 @@ class PageNavigationFrameworkState extends State<PageNavigationFramework> {
         key: upcomingOverdueTransactionsStateKey,
         overdueTransactions: null), //16
     CreditDebtTransactions(key: creditDebtTransactionsKey, isCredit: null), //17
+    PriceComparisonPage(), //18
   ];
 
   late int currentPage = widget.widthSideNavigationBar <= 0
