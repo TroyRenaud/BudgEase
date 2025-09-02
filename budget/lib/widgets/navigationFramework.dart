@@ -378,7 +378,9 @@ class PageNavigationFrameworkState extends State<PageNavigationFramework> {
     UpcomingOverdueTransactions(
         key: upcomingOverdueTransactionsStateKey,
         overdueTransactions: null), //16
-    CreditDebtTransactions(key: creditDebtTransactionsKey, isCredit: null), //17
+        CreditDebtTransactions(key: creditDebtTransactionsKey, isCredit: null), //17
+    PriceComparisonPage(), //18
+  ]; //17
     PriceComparisonPage(), //18
   ];
 
