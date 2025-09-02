@@ -1303,12 +1303,21 @@ class FinanceDatabase extends _$FinanceDatabase {
     });
   }
 
-  Stream<List<PricedItem>> watchAllPricedItems() {
-    return (select(pricedItems)
+  Stream<List<PricedItemWithWallet>> watchAllPricedItems() {
+    return (select(pricedItems).join([
+      innerJoin(
+          wallets, wallets.walletPk.equalsExp(pricedItems.walletFk)),
+    ])
           ..orderBy([
-            (p) => OrderingTerm.desc(p.dateCreated),
+            OrderingTerm.desc(pricedItems.dateCreated),
           ]))
-        .watch();
+        .watch()
+        .map((rows) => rows.map((row) {
+              return PricedItemWithWallet(
+                pricedItem: row.readTable(pricedItems),
+                wallet: row.readTable(wallets),
+              );
+            }).toList());
   }
 
   Future<String> createOrUpdatePricedItem(PricedItemsCompanion pricedItem) {

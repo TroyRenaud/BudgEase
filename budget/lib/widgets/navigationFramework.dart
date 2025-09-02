@@ -22,6 +22,7 @@ import 'package:budget/pages/notificationsPage.dart';
 import 'package:budget/pages/objectivesListPage.dart';
 import 'package:budget/pages/onBoardingPage.dart';
 import 'package:budget/pages/premiumPage.dart';
+import 'package:budget/pages/price_comparison_page.dart';
 import 'package:budget/pages/settingsPage.dart';
 import 'package:budget/pages/subscriptionsPage.dart';
 import 'package:budget/pages/transactionsListPage.dart';
@@ -380,9 +381,7 @@ class PageNavigationFrameworkState extends State<PageNavigationFramework> {
         overdueTransactions: null), //16
         CreditDebtTransactions(key: creditDebtTransactionsKey, isCredit: null), //17
     PriceComparisonPage(), //18
-  ]; //17
-    PriceComparisonPage(), //18
-  ];
+  ]; //18
 
   late int currentPage = widget.widthSideNavigationBar <= 0
       ? (int.tryParse(navBarIconsData[appStateSettings["customNavBarShortcut0"]]

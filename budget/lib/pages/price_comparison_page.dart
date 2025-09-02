@@ -1,9 +1,14 @@
+
 import 'package:budget/database/tables.dart';
 import 'package:budget/struct/databaseGlobal.dart';
 import 'package:budget/widgets/framework/pageFramework.dart';
+import 'package:budget/widgets/selectChips.dart';
+import 'package:budget/widgets/textWidgets.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:budget/struct/currencyFunctions.dart';
 
 class PriceComparisonPage extends StatefulWidget {
   const PriceComparisonPage({Key? key}) : super(key: key);
@@ -13,29 +18,31 @@ class PriceComparisonPage extends StatefulWidget {
 }
 
 class _PriceComparisonPageState extends State<PriceComparisonPage> {
-  Map<String, List<PricedItem>> _groupPricedItems(
-      List<PricedItem> pricedItems) {
-    final map = <String, List<PricedItem>>{};
+  Map<String, List<PricedItemWithWallet>> _groupPricedItems(
+      List<PricedItemWithWallet> pricedItems) {
+    final map = <String, List<PricedItemWithWallet>>{};
     for (final item in pricedItems) {
-      if (map.containsKey(item.name)) {
-        map[item.name]!.add(item);
+      if (map.containsKey(item.pricedItem.name)) {
+        map[item.pricedItem.name]!.add(item);
       } else {
-        map[item.name] = [item];
+        map[item.pricedItem.name] = [item];
       }
     }
     return map;
   }
 
-  PricedItem? _getCheapestItem(List<PricedItem> items) {
+  PricedItemWithWallet? _getCheapestItem(List<PricedItemWithWallet> items) {
     if (items.isEmpty) return null;
-    return items.reduce((a, b) => a.price < b.price ? a : b);
+    return items.reduce((a, b) =>
+        a.pricedItem.price < b.pricedItem.price ? a : b);
   }
 
-  void _addItem(String name, String store, double price) {
+  void _addItem(String name, String store, double price, String walletFk) {
     final newPricedItem = PricedItemsCompanion(
       name: drift.Value(name),
       store: drift.Value(store),
       price: drift.Value(price),
+      walletFk: drift.Value(walletFk),
       dateCreated: drift.Value(DateTime.now()),
     );
     database.createOrUpdatePricedItem(newPricedItem);
@@ -45,6 +52,7 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
     final nameController = TextEditingController();
     final storeController = TextEditingController();
     final priceController = TextEditingController();
+    String selectedWalletPk = appStateSettings["selectedWalletPk"];
 
     showDialog(
       context: context,
@@ -67,6 +75,21 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
                 decoration: InputDecoration(labelText: 'price'.tr()),
                 keyboardType: TextInputType.number,
               ),
+              SizedBox(height: 20),
+              SelectChips(
+                items: Provider.of<AllWallets>(context).list,
+                getSelected: (TransactionWallet wallet) {
+                  return selectedWalletPk == wallet.walletPk;
+                },
+                onSelected: (TransactionWallet wallet) {
+                  setState(() {
+                    selectedWalletPk = wallet.walletPk;
+                  });
+                },
+                getLabel: (TransactionWallet wallet) {
+                  return wallet.name;
+                },
+              )
             ],
           ),
           actions: [
@@ -80,7 +103,7 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
                 final store = storeController.text;
                 final price = double.tryParse(priceController.text) ?? 0.0;
                 if (name.isNotEmpty && store.isNotEmpty && price > 0) {
-                  _addItem(name, store, price);
+                  _addItem(name, store, price, selectedWalletPk);
                   Navigator.of(context).pop();
                 }
               },
@@ -103,8 +126,8 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
         ),
       ],
       slivers: [
-        StreamBuilder<List<PricedItem>>(
-          stream: database.watchAllPricedItems(),
+        StreamBuilder<List<PricedItemWithWallet>>(
+          stream: database.watchAllPricedItemsWithWallet(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final grouped = _groupPricedItems(snapshot.data!);
@@ -129,16 +152,22 @@ class _PriceComparisonPageState extends State<PriceComparisonPage> {
                             ...itemsInGroup.map((item) {
                               final isCheapest = item == cheapestItem;
                               return ListTile(
-                                title: Text(item.store),
+                                title: Text(item.pricedItem.store),
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(item.price.toStringAsFixed(2)),
+                                    TextFont(
+                                      text: convertToMoney(
+                                        Provider.of<AllWallets>(context),
+                                        item.pricedItem.price,
+                                        currencyKey: item.wallet.currency,
+                                      ),
+                                    ),
                                     IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
                                         database.deletePricedItem(
-                                            item.pricedItemPk);
+                                            item.pricedItem.pricedItemPk);
                                       },
                                     ),
                                   ],
