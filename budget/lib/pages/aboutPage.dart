@@ -319,7 +319,7 @@ class AboutLinks extends StatelessWidget {
               icon: appStateSettings["outlinedIcons"]
                   ? Icons.account_balance_outlined
                   : Icons.account_balance_rounded,
-              text: "licenses".tr(),
+              text: "Licenses".tr(),
             ),
             const HorizontalBreak(padding: EdgeInsetsDirectional.zero),
             _buildTappable(

@@ -158,12 +158,5 @@ Map<String, NavBarIconData> getNavBarIconsData() {
       labelLong: "goals-details",
       navigationIndexedStackIndex: 15,
     ),
-    "price-comparison": NavBarIconData(
-      iconData: appStateSettings["outlinedIcons"]
-          ? Icons.compare_arrows_outlined
-          : Icons.compare_arrows_rounded,
-      label: "price-comparison",
-      navigationIndexedStackIndex: 18,
-    ),
   };
 }

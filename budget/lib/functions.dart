@@ -730,7 +730,7 @@ int daysBetween(DateTime from, DateTime to) {
 }
 
 String getWelcomeMessage() {
-  int h24 = DateTime.now().hour;
+  int h24 = DateTime.now().toUtc().hour;
   List<String> greetings = [
     "greetings-general-1".tr(),
     "greetings-general-2".tr(),
@@ -754,13 +754,13 @@ String getWelcomeMessage() {
     "greetings-late-2".tr()
   ];
   if (randomInt[0] % 2 == 0) {
-    if (h24 <= 12 && h24 >= 6)
+    if (h24 <= 12 && h24 >= 3)
       return greetingsMorning[randomInt[0] % (greetingsMorning.length)];
     else if (h24 <= 16 && h24 >= 13)
       return greetingsAfternoon[randomInt[0] % (greetingsAfternoon.length)];
     else if (h24 <= 22 && h24 >= 19)
       return greetingsEvening[randomInt[0] % (greetingsEvening.length)];
-    else if (h24 >= 23 || h24 <= 5)
+    else if (h24 >= 23 || h24 < 3)
       return greetingsLate[randomInt[0] % (greetingsLate.length)];
     else
       return greetings[randomInt[0] % (greetings.length)];

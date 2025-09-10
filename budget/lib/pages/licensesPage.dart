@@ -432,7 +432,7 @@ class LicensesPage extends StatelessWidget {
     ];
     return PageFramework(
       dragDownToDismiss: true,
-      title: "licenses".tr(),
+      title: "Licenses".tr(),
       slivers: [
         SliverToBoxAdapter(
           child: Column(

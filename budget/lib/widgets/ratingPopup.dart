@@ -99,34 +99,7 @@ class _RatingPopupState extends State<RatingPopup> {
                     }
                   },
                 ),
-                if (appStateSettings["showFAQAndHelpLink"] == true)
-                  HorizontalBreak(
-                    padding: EdgeInsetsDirectional.zero,
-                    color: appStateSettings["materialYou"]
-                        ? dynamicPastel(
-                            context,
-                            Theme.of(context).colorScheme.secondaryContainer,
-                            amount: 0.1,
-                            inverse: true,
-                          )
-                        : getColor(context, "lightDarkAccent"),
-                  ),
-                if (appStateSettings["showFAQAndHelpLink"] == true)
-                  LinkInNotes(
-                    color: (appStateSettings["materialYou"]
-                        ? Theme.of(context).colorScheme.secondaryContainer
-                        : getColor(context, "canvasContainer")),
-                    link: "guide-and-faq".tr(),
-                    iconData: appStateSettings["outlinedIcons"]
-                        ? Icons.live_help_outlined
-                        : Icons.live_help_rounded,
-                    iconDataAfter: appStateSettings["outlinedIcons"]
-                        ? Icons.open_in_new_outlined
-                        : Icons.open_in_new_rounded,
-                    onTap: () async {
-                      openUrl("https://cashewapp.web.app/faq.html");
-                    },
-                  ),
+                
               ],
             ),
           ),

@@ -1303,47 +1303,7 @@ class FinanceDatabase extends _$FinanceDatabase {
     });
   }
 
-  Stream<List<PricedItemWithWallet>> watchAllPricedItems() {
-    return (select(pricedItems).join([
-      innerJoin(
-          wallets, wallets.walletPk.equalsExp(pricedItems.walletFk)),
-    ])
-          ..orderBy([
-            OrderingTerm.desc(pricedItems.dateCreated),
-          ]))
-        .watch()
-        .map((rows) => rows.map((row) {
-              return PricedItemWithWallet(
-                pricedItem: row.readTable(pricedItems),
-                wallet: row.readTable(wallets),
-              );
-            }).toList());
-  }
-
-  Future<String> createOrUpdatePricedItem(PricedItemsCompanion pricedItem) {
-    return transaction(() async {
-      final existingPricedItem = await (select(pricedItems)
-            ..where((p) => p.pricedItemPk.equals(pricedItem.pricedItemPk.value)))
-          .getSingleOrNull();
-      if (existingPricedItem == null) {
-        final pk = await into(pricedItems).insert(pricedItem);
-        return pk;
-      } else {
-        await (update(pricedItems)
-              ..where((p) => p.pricedItemPk.equals(pricedItem.pricedItemPk.value)))
-            .write(pricedItem);
-        return pricedItem.pricedItemPk.value;
-      }
-    });
-  }
-
-  Future<void> deletePricedItem(String pricedItemPk) {
-    return transaction(() async {
-      await (delete(pricedItems)
-            ..where((p) => p.pricedItemPk.equals(pricedItemPk)))
-          .go();
-    });
-  }
+  
 
   // Future<bool> updateDateCreatedColumn() async {
   //   List<Transaction> transactionsList = await (select(transactions)).get();

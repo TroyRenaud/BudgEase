@@ -285,10 +285,6 @@ class NavigationSidebarState extends State<NavigationSidebar> {
                                 navBarIconDataKey: "loans",
                                 currentPageIndex: selectedIndex,
                               ),
-                              NavigationSidebarButtonWithNavBarIconData(
-                                navBarIconDataKey: "price-comparison",
-                                currentPageIndex: selectedIndex,
-                              ),
                               if (notificationsGlobalEnabled)
                                 NavigationSidebarButtonWithNavBarIconData(
                                   navBarIconDataKey: "notifications",
